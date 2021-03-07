@@ -5,6 +5,7 @@ import { Page, Container, LoginForm, Logo, LoginFormCard } from './styles';
 import logo from 'assets/logo.png';
 import InputComponent from 'components/Input';
 import ButtonComponent from 'components/Button';
+import { login } from 'services/user';
 
 const initial = {
   email: '',
@@ -14,9 +15,10 @@ const initial = {
 const Login: React.FC = () => {
   const { register, getValues } = useForm({ defaultValues: initial });
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(getValues());
+    await login(getValues());
   };
 
   return (
