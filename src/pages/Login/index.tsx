@@ -1,17 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import {
-  Page,
-  Container,
-  LoginForm,
-  Logo,
-  Label,
-  Input,
-  LoginFormCard,
-  Button
-} from './styles';
+import { Page, Container, LoginForm, Logo, LoginFormCard } from './styles';
 import logo from 'assets/logo.png';
+import InputComponent from 'components/Input';
+import ButtonComponent from 'components/Button';
 
 const initial = {
   email: '',
@@ -32,16 +25,19 @@ const Login: React.FC = () => {
         <LoginFormCard>
           <Logo src={logo} />
           <LoginForm onSubmit={onSubmit}>
-            <Label>Email</Label>
-            <Input placeholder="E-mail" name="email" ref={register} />
-            <Label>Senha</Label>
-            <Input
-              placeholder="Senha"
-              type="password"
-              name="password"
-              ref={register}
+            <InputComponent
+              register={register}
+              label="e-mail"
+              name="email"
+              type="email"
             />
-            <Button type="submit">Entrar</Button>
+            <InputComponent
+              register={register}
+              label="senha"
+              name="password"
+              type="password"
+            />
+            <ButtonComponent label="Entrar" type="submit" />
           </LoginForm>
         </LoginFormCard>
       </Container>
