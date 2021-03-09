@@ -1,5 +1,13 @@
 import { api } from './api';
 
+interface LoginResponse {
+  data: {
+    email: string;
+    id: string;
+    token: string;
+  };
+}
+
 export const login = async ({
   email,
   password
@@ -7,9 +15,10 @@ export const login = async ({
   email: string;
   password: string;
 }) => {
-  const { data } = await api.post('/users/login', { email, password });
-
-  console.log(data);
+  const { data }: LoginResponse = await api.post('/users/login', {
+    email,
+    password
+  });
 
   return data;
 };

@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 
 import { Page, Container, LoginForm, Logo, LoginFormCard } from './styles';
 import logo from 'assets/logo.png';
-import InputComponent from 'components/Input';
-import ButtonComponent from 'components/Button';
-import { login } from 'services/user';
+import InputComponent from 'components/input/Input';
+import ButtonComponent from 'components/input/Button';
+import { useUserContext } from 'context/user';
 
 const initial = {
   email: '',
@@ -14,11 +14,17 @@ const initial = {
 
 const Login: React.FC = () => {
   const { register, getValues } = useForm({ defaultValues: initial });
+  const { login } = useUserContext();
+
+  //loading
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(getValues());
-    await login(getValues());
+    try {
+      await login(getValues());
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
