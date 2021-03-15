@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from '../Header';
+import HeaderComponent from '../Header';
 
 import { Wrapper } from './styles';
 
@@ -13,7 +13,7 @@ export const Layout = ({
 }) => {
   return signed ? (
     <Wrapper>
-      <Header />
+      <HeaderComponent />
       {children}
     </Wrapper>
   ) : (

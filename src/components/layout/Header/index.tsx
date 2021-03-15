@@ -2,18 +2,18 @@ import Button from 'components/input/Button';
 import { useUserContext } from 'context/user';
 import React from 'react';
 
-import { Wrapper, Logo } from './styles';
+import { Header, Logo } from './styles';
 
 import logo from 'assets/logo.png';
 
-const Header: React.FC = () => {
+const HeaderComponent: React.FC = () => {
   const { logout } = useUserContext();
   return (
-    <Wrapper>
+    <Header>
       <Logo src={logo} />
       <Button label="sair" onClick={logout} variant="secondary" />
-    </Wrapper>
+    </Header>
   );
 };
 
-export default Header;
+export default HeaderComponent;

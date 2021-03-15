@@ -13,4 +13,5 @@ export const Button = styled.button<ButtonProps>`
   border: none;
   height: 40px;
   text-transform: capitalize;
+  padding: 8px 16px;
 `;

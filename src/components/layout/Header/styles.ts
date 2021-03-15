@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.header`
+export const Header = styled.header`
   height: 85px;
   padding: 24px 32px;
   align-items: center;

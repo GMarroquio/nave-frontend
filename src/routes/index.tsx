@@ -3,11 +3,12 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 
 import Login from 'pages/Login';
+import Home from 'pages/Home';
 
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={() => <h1>Home</h1>} isPrivate />
+      <Route path="/" exact component={Home} isPrivate />
 
       <Route path="/login" component={Login} />
 
