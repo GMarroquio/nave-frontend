@@ -12,13 +12,18 @@ import {
   Info,
   SecondaryInfoWrapper
 } from './styles';
+import IconButton from 'components/input/IconButton';
+import { MdCreate, MdDelete } from 'react-icons/md';
+import { useHistory } from 'react-router';
 
 interface CardModalProps {
   id: string;
+  handleDelete: () => void;
 }
 
-const CardModalComponent: React.FC<CardModalProps> = ({ id }) => {
+const CardModalComponent: React.FC<CardModalProps> = ({ id, handleDelete }) => {
   const [user, setUser] = useState({} as UserProps);
+  const history = useHistory();
 
   useEffect(() => {
     (async () => {
@@ -46,25 +51,39 @@ const CardModalComponent: React.FC<CardModalProps> = ({ id }) => {
   };
 
   return (
-    <Container>
-      <Image src={user.url} alt={`${user.name}'s avatar image`} />
-      <InfoWrapper>
-        <Name>{user.name}</Name>
-        <Info>{user.job_role}</Info>
-        <SecondaryInfoWrapper>
-          <Label>Idade</Label>
-          <Info>{calculateAge(user.birthdate, 'birth')}</Info>
-        </SecondaryInfoWrapper>
-        <SecondaryInfoWrapper>
-          <Label>Tempo de Empresa</Label>
-          <Info>{calculateAge(user.admission_date, 'admission')}</Info>
-        </SecondaryInfoWrapper>
-        <SecondaryInfoWrapper>
-          <Label>Projetos que participou</Label>
-          <Info>{user.project}</Info>
-        </SecondaryInfoWrapper>
-      </InfoWrapper>
-    </Container>
+    <>
+      <Container>
+        <Image src={user.url} alt={`${user.name}'s avatar image`} />
+        <InfoWrapper>
+          <div>
+            <Name>{user.name}</Name>
+            <Info>{user.job_role}</Info>
+            <SecondaryInfoWrapper>
+              <Label>Idade</Label>
+              <Info>{calculateAge(user.birthdate, 'birth')}</Info>
+            </SecondaryInfoWrapper>
+            <SecondaryInfoWrapper>
+              <Label>Tempo de Empresa</Label>
+              <Info>{calculateAge(user.admission_date, 'admission')}</Info>
+            </SecondaryInfoWrapper>
+            <SecondaryInfoWrapper>
+              <Label>Projetos que participou</Label>
+              <Info>{user.project}</Info>
+            </SecondaryInfoWrapper>
+          </div>
+          <div style={{ display: 'flex' }}>
+            <IconButton
+              icon={() => <MdDelete color="#212121" size="24px" />}
+              onClick={handleDelete}
+            />
+            <IconButton
+              icon={() => <MdCreate color="#212121" size="24px" />}
+              onClick={() => history.push(`/edit/${id}`)}
+            />
+          </div>
+        </InfoWrapper>
+      </Container>
+    </>
   );
 };
 

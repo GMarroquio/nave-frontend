@@ -15,6 +15,9 @@ export const Image = styled.img`
 
 export const InfoWrapper = styled.div`
   padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const Name = styled.p`

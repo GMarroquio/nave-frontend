@@ -21,14 +21,22 @@ export interface UserProps {
 
 const Home: React.FC = () => {
   const [users, setUsers] = useState<UserProps[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [deletedModalIsOpen, setDeletedModalIsOpen] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
-    getAll().then((data) => {
-      setUsers(data);
-    });
+    setLoading(true);
+    (async () => {
+      try {
+        const data = await getAll();
+        setUsers(data);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const handleDelete = async (id: string) => {
@@ -50,7 +58,7 @@ const Home: React.FC = () => {
 
   if (loading)
     return (
-      <div>
+      <div style={{ flex: 1, display: 'flex' }}>
         <Loading />
       </div>
     );

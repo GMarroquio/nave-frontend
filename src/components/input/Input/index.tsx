@@ -8,6 +8,7 @@ interface InputProps {
   name: string;
   type?: string;
   fullWidth?: boolean;
+  error?: boolean;
 }
 
 const InputComponent: React.FC<InputProps> = ({
@@ -15,12 +16,19 @@ const InputComponent: React.FC<InputProps> = ({
   label,
   name,
   type,
-  fullWidth = false
+  fullWidth = false,
+  error = false
 }) => {
   return (
     <Wrapper fullWidth={fullWidth}>
-      <Label>{label}</Label>
-      <Input placeholder={label} name={name} ref={register} type={type} />
+      <Label error={error}>{label}</Label>
+      <Input
+        placeholder={label}
+        name={name}
+        ref={register}
+        type={type}
+        error={error}
+      />
     </Wrapper>
   );
 };

@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = ({ name, image, role, id, handleDelete }) => {
         padding={false}
         width={1000}
       >
-        <CardModalComponent id={id} />
+        <CardModalComponent id={id} handleDelete={handleClickDeleteNaver} />
       </Modal>
       <Modal
         isOpen={deleteModalOpen}

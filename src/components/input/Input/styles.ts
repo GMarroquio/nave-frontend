@@ -12,19 +12,27 @@ export const Wrapper = styled.div<WrapperProps>`
   }
 `;
 
-export const Label = styled.p`
+interface LabelProps {
+  error?: boolean;
+}
+
+export const Label = styled.p<LabelProps>`
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
-  color: #212121;
+  color: ${({ error }) => (error ? '#ED4337' : '#212121')};
   text-transform: capitalize;
 `;
 
-export const Input = styled.input`
+interface InputProps {
+  error?: boolean;
+}
+
+export const Input = styled.input<InputProps>`
   height: 40px;
   border: none;
   border-radius: 0;
-  border: 1px solid #424242;
+  border: ${({ error }) => (error ? '1px solid #ED4337' : '1px solid #424242')};
   padding: 8px;
   width: 100%;
 
