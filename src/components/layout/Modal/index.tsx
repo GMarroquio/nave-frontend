@@ -10,6 +10,8 @@ interface ModalProps {
   title?: string;
   message?: string;
   handleClose: () => void;
+  padding?: boolean;
+  width?: number;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -17,7 +19,9 @@ const Modal: React.FC<ModalProps> = ({
   title,
   message,
   handleClose,
-  children
+  children,
+  padding = true,
+  width
 }) => {
   const containerRef = useRef(null);
 
@@ -25,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <Container isOpen={isOpen}>
-      <ModalInfo ref={containerRef}>
+      <ModalInfo ref={containerRef} padding={padding} width={width}>
         {children ? (
           <>{children}</>
         ) : (

@@ -1,66 +1,23 @@
-import IconButton from 'components/input/IconButton';
 import React, { useState } from 'react';
+import IconButton from 'components/input/IconButton';
 import { MdCreate, MdDelete } from 'react-icons/md';
 import Modal from '../Modal';
 import { Container, Image, Name, Role } from './styles';
-import { Message, Title } from '../Modal/styles';
-import ButtonComponent from 'components/input/Button';
-
+import { useHistory } from 'react-router';
+import { DeleteModalComponent } from 'components/layout/DeleteModalComponent';
+import { CardModalComponent } from 'components/layout/CardModalComponent';
 interface CardProps {
   name: string;
   image: string;
   role: string;
+  id: string;
   handleDelete: () => void;
 }
 
-interface DeleteModalComponentProps {
-  closeModal: () => void;
-  handleDelete: () => void;
-}
-
-export const DeleteModalComponent = ({
-  closeModal,
-  handleDelete
-}: DeleteModalComponentProps) => {
-  return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between'
-        }}
-      >
-        <Title>Excluir Naver</Title>
-      </div>
-      <Message>Tem certeza que deseja excluir este Naver?</Message>
-      <div
-        style={{
-          display: 'flex',
-          width: '75%',
-          marginTop: '40px',
-          marginLeft: 'auto'
-        }}
-      >
-        <ButtonComponent
-          label="cancelar"
-          onClick={closeModal}
-          variant="secondary"
-          border
-          style={{ width: '100%', marginRight: '24px' }}
-        />
-        <ButtonComponent
-          label="excluir"
-          onClick={handleDelete}
-          style={{ width: '100%' }}
-        />
-      </div>
-    </>
-  );
-};
-
-const Card: React.FC<CardProps> = ({ name, image, role, handleDelete }) => {
+const Card: React.FC<CardProps> = ({ name, image, role, id, handleDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const history = useHistory();
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -88,15 +45,17 @@ const Card: React.FC<CardProps> = ({ name, image, role, handleDelete }) => {
         />
         <IconButton
           icon={() => <MdCreate color="#212121" size="24px" />}
-          onClick={() => console.log('edit')}
+          onClick={() => history.push(`/edit/${id}`)}
         />
       </Container>
       <Modal
         isOpen={isOpen}
         handleClose={handleCloseModal}
-        message="test modal"
-        title="modal title"
-      />
+        padding={false}
+        width={1000}
+      >
+        <CardModalComponent id={id} />
+      </Modal>
       <Modal
         isOpen={deleteModalOpen}
         handleClose={() => setDeleteModalOpen(false)}

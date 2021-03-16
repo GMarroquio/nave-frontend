@@ -16,10 +16,15 @@ export const Container = styled.div<ContainerProps>`
   justify-content: center;
 `;
 
-export const ModalInfo = styled.div`
+interface ModalProps {
+  padding?: boolean;
+  width?: number;
+}
+
+export const ModalInfo = styled.div<ModalProps>`
   background-color: #fff;
-  padding: 24px;
-  width: 592px;
+  padding: ${({ padding }) => (padding ? '24px' : '0')};
+  width: ${({ width }) => (width ? `${width}px` : '592px')};
 `;
 
 export const Title = styled.p`

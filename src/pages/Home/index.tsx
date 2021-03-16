@@ -65,6 +65,7 @@ const Home: React.FC = () => {
         {users.map((user) => (
           <Card
             key={user.id}
+            id={user.id}
             name={user.name}
             image={user.url}
             role={user.job_role}
