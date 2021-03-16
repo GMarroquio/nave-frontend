@@ -1,6 +1,7 @@
 import { RefObject, useEffect } from 'react';
 
 export const useClickOutside = (
+  //eslint-disable-next-line
   ref: RefObject<any>,
   isVisible: boolean,
   onClose: () => void
