@@ -4,6 +4,8 @@ import { Container, Header, Title, CardWrapper } from './styles';
 import Button from 'components/input/Button';
 import { getAll } from 'services/user';
 import { useHistory } from 'react-router';
+import { deleteNaver } from 'services/user';
+import Loading from 'components/layout/Loading';
 
 export interface UserProps {
   admission_date: string;
@@ -18,6 +20,7 @@ export interface UserProps {
 
 const Home: React.FC = () => {
   const [users, setUsers] = useState<UserProps[]>([]);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -26,9 +29,28 @@ const Home: React.FC = () => {
     });
   }, []);
 
+  const handleDelete = async (id: string) => {
+    setLoading(true);
+    try {
+      await deleteNaver({ id });
+      setUsers((old) => old.filter((u) => u.id !== id));
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
   const handleNavigationAddNaver = () => {
     history.push('/add');
   };
+
+  if (loading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
 
   return (
     <Container>
@@ -38,7 +60,13 @@ const Home: React.FC = () => {
       </Header>
       <CardWrapper>
         {users.map((user) => (
-          <Card key={user.id} user={user} />
+          <Card
+            key={user.id}
+            name={user.name}
+            image={user.url}
+            role={user.job_role}
+            handleDelete={() => handleDelete(user.id)}
+          />
         ))}
       </CardWrapper>
     </Container>

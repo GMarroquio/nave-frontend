@@ -1,68 +1,27 @@
 import IconButton from 'components/input/IconButton';
 import React, { useState } from 'react';
-import { MdClose, MdCreate, MdDelete } from 'react-icons/md';
+import { MdCreate, MdDelete } from 'react-icons/md';
 import Modal from '../Modal';
-import { UserProps } from '../../../pages/Home';
 import { Container, Image, Name, Role } from './styles';
-import { deleteNaver } from 'services/user';
 import { Message, Title } from '../Modal/styles';
 import ButtonComponent from 'components/input/Button';
-import Loading from '../Loading';
-import { useUserContext } from 'context/user';
 
 interface CardProps {
-  user: UserProps;
+  name: string;
+  image: string;
+  role: string;
+  handleDelete: () => void;
 }
 
 interface DeleteModalComponentProps {
   closeModal: () => void;
-  userId: string;
+  handleDelete: () => void;
 }
 
 export const DeleteModalComponent = ({
   closeModal,
-  userId
+  handleDelete
 }: DeleteModalComponentProps) => {
-  const [loading, setLoading] = useState(false);
-  const [deleted, setDeleted] = useState(false);
-
-  const handleDeleteNaver = async () => {
-    setLoading(true);
-    try {
-      await deleteNaver({ id: userId });
-      setLoading(false);
-      setDeleted(true);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-    }
-  };
-
-  const handleClose = () => {
-    closeModal();
-  };
-
-  if (loading) return <Loading />;
-
-  if (deleted)
-    return (
-      <>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between'
-          }}
-        >
-          <Title>Naver Excluído</Title>
-          <IconButton
-            icon={() => <MdClose color="#212121" size="24px" />}
-            onClick={handleClose}
-          />
-        </div>
-        <Message>Naver excluído com sucesso</Message>
-      </>
-    );
-
   return (
     <>
       <div
@@ -91,7 +50,7 @@ export const DeleteModalComponent = ({
         />
         <ButtonComponent
           label="excluir"
-          onClick={handleDeleteNaver}
+          onClick={handleDelete}
           style={{ width: '100%' }}
         />
       </div>
@@ -99,7 +58,7 @@ export const DeleteModalComponent = ({
   );
 };
 
-const Card: React.FC<CardProps> = ({ user }) => {
+const Card: React.FC<CardProps> = ({ name, image, role, handleDelete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
@@ -119,9 +78,9 @@ const Card: React.FC<CardProps> = ({ user }) => {
     <>
       <Container>
         <div onClick={handleOpenModal}>
-          <Image src={user.url} alt={`${user.name}'s avatar`} />
-          <Name>{user.name}</Name>
-          <Role>{user.job_role}</Role>
+          <Image src={image} alt={`${name}'s avatar`} />
+          <Name>{name}</Name>
+          <Role>{role}</Role>
         </div>
         <IconButton
           icon={() => <MdDelete color="#212121" size="24px" />}
@@ -144,7 +103,7 @@ const Card: React.FC<CardProps> = ({ user }) => {
       >
         <DeleteModalComponent
           closeModal={() => setDeleteModalOpen(false)}
-          userId={user.id}
+          handleDelete={handleDelete}
         />
       </Modal>
     </>

@@ -8,7 +8,6 @@ import ButtonComponent from 'components/input/Button';
 import { useHistory } from 'react-router';
 import { createUser } from 'services/user';
 import { UserProps } from 'pages/Home';
-import { useUserContext } from 'context/user';
 import Modal from 'components/layout/Modal';
 import Loading from 'components/layout/Loading';
 
