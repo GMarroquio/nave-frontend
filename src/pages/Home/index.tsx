@@ -6,6 +6,7 @@ import { getAll } from 'services/user';
 import { useHistory } from 'react-router';
 import { deleteNaver } from 'services/user';
 import Loading from 'components/layout/Loading';
+import Modal from 'components/layout/Modal';
 
 export interface UserProps {
   admission_date: string;
@@ -21,6 +22,7 @@ export interface UserProps {
 const Home: React.FC = () => {
   const [users, setUsers] = useState<UserProps[]>([]);
   const [loading, setLoading] = useState(false);
+  const [deletedModalIsOpen, setDeletedModalIsOpen] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -35,6 +37,7 @@ const Home: React.FC = () => {
       await deleteNaver({ id });
       setUsers((old) => old.filter((u) => u.id !== id));
       setLoading(false);
+      setDeletedModalIsOpen(true);
     } catch (err) {
       console.log(err);
       setLoading(false);
@@ -69,6 +72,12 @@ const Home: React.FC = () => {
           />
         ))}
       </CardWrapper>
+      <Modal
+        title="Naver Excluído"
+        message="Naver excluído com sucesso"
+        isOpen={deletedModalIsOpen}
+        handleClose={() => setDeletedModalIsOpen(false)}
+      />
     </Container>
   );
 };
