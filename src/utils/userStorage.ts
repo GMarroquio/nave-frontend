@@ -1,7 +1,6 @@
 import * as Storage from './storage';
 
 export const saveUser = ({ user }: { user: unknown }) => {
-  console.log(user);
   Storage.save({ key: 'user', value: user });
 };
 

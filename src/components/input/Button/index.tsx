@@ -7,18 +7,24 @@ interface ButtonProps {
   onClick?: React.MouseEventHandler;
   type?: 'submit' | 'reset' | 'button';
   variant?: 'primary' | 'secondary';
+  style?: React.CSSProperties;
+  border?: boolean;
 }
 
 const ButtonComponent: React.FC<ButtonProps> = ({
   label,
   onClick,
   type,
-  variant = 'primary'
+  variant = 'primary',
+  border = false,
+  style = {}
 }) => {
   return (
-    <Button onClick={onClick} type={type} variant={variant}>
-      {label}
-    </Button>
+    <div style={style}>
+      <Button onClick={onClick} type={type} variant={variant} border={border}>
+        {label}
+      </Button>
+    </div>
   );
 };
 

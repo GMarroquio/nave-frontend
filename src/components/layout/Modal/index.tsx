@@ -7,18 +7,17 @@ import { useClickOutside } from 'hooks/useClickOutside';
 
 interface ModalProps {
   isOpen: boolean;
-  type?: 'info' | 'action';
-  title: string;
-  message: string;
+  title?: string;
+  message?: string;
   handleClose: () => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
   isOpen,
-  type,
   title,
   message,
-  handleClose
+  handleClose,
+  children
 }) => {
   const containerRef = useRef(null);
 
@@ -27,20 +26,25 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <Container isOpen={isOpen}>
       <ModalInfo ref={containerRef}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between'
-            // alignItems: 'center'
-          }}
-        >
-          <Title>{title}</Title>
-          <IconButton
-            icon={() => <MdClose color="#212121" size="24px" />}
-            onClick={handleClose}
-          />
-        </div>
-        <Message>{message}</Message>
+        {children ? (
+          <>{children}</>
+        ) : (
+          <>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between'
+              }}
+            >
+              <Title>{title}</Title>
+              <IconButton
+                icon={() => <MdClose color="#212121" size="24px" />}
+                onClick={handleClose}
+              />
+            </div>
+            <Message>{message}</Message>
+          </>
+        )}
       </ModalInfo>
     </Container>
   );

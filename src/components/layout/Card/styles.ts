@@ -7,8 +7,10 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.img`
-  height: 280px;
-  width: 280px;
+  min-height: 280px;
+  min-width: 280px;
+  max-height: 280px;
+  max-width: 280px;
   margin-bottom: 16px;
   object-fit: cover;
 `;

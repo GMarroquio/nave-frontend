@@ -1,37 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'components/layout/Card';
-
 import { Container, Header, Title, CardWrapper } from './styles';
 import Button from 'components/input/Button';
+import { getAll } from 'services/user';
+import { useHistory } from 'react-router';
+
+export interface UserProps {
+  admission_date: string;
+  birthdate: string;
+  id: string;
+  job_role: string;
+  name: string;
+  project: string;
+  url: string;
+  user_id: string;
+}
 
 const Home: React.FC = () => {
+  const [users, setUsers] = useState<UserProps[]>([]);
+  const history = useHistory();
+
+  useEffect(() => {
+    getAll().then((data) => {
+      setUsers(data);
+    });
+  }, []);
+
+  const handleNavigationAddNaver = () => {
+    history.push('/add');
+  };
+
   return (
     <Container>
       <Header>
         <Title>Navers</Title>
-        <Button label="Adicionar Naver" />
+        <Button label="Adicionar Naver" onClick={handleNavigationAddNaver} />
       </Header>
       <CardWrapper>
-        <Card
-          name="Guilherme Marroquio"
-          role="Front-end developer"
-          img="https://lh3.googleusercontent.com/pw/ACtC-3do5Jf2PkX7oBXlqAnAFn1UPsklT40yHpouLQQNOHYcl142a3DUgFX8lFU0dzNWVMPyEXeeRpDQ8DNShmVyh4OWBPbsTQ2kmAw7YDGz8_JAWR009SXNIdBtJEq74xo2J_i6LPOp8T-tVWQmGNWhtV1baA=w924-h1642-no?authuser=0"
-        />
-        <Card
-          name="Guilherme Marroquio"
-          role="Front-end developer"
-          img="https://lh3.googleusercontent.com/pw/ACtC-3do5Jf2PkX7oBXlqAnAFn1UPsklT40yHpouLQQNOHYcl142a3DUgFX8lFU0dzNWVMPyEXeeRpDQ8DNShmVyh4OWBPbsTQ2kmAw7YDGz8_JAWR009SXNIdBtJEq74xo2J_i6LPOp8T-tVWQmGNWhtV1baA=w924-h1642-no?authuser=0"
-        />
-        <Card
-          name="Guilherme Marroquio"
-          role="Front-end developer"
-          img="https://lh3.googleusercontent.com/pw/ACtC-3do5Jf2PkX7oBXlqAnAFn1UPsklT40yHpouLQQNOHYcl142a3DUgFX8lFU0dzNWVMPyEXeeRpDQ8DNShmVyh4OWBPbsTQ2kmAw7YDGz8_JAWR009SXNIdBtJEq74xo2J_i6LPOp8T-tVWQmGNWhtV1baA=w924-h1642-no?authuser=0"
-        />
-        <Card
-          name="Guilherme Marroquio"
-          role="Front-end developer"
-          img="https://lh3.googleusercontent.com/pw/ACtC-3do5Jf2PkX7oBXlqAnAFn1UPsklT40yHpouLQQNOHYcl142a3DUgFX8lFU0dzNWVMPyEXeeRpDQ8DNShmVyh4OWBPbsTQ2kmAw7YDGz8_JAWR009SXNIdBtJEq74xo2J_i6LPOp8T-tVWQmGNWhtV1baA=w924-h1642-no?authuser=0"
-        />
+        {users.map((user) => (
+          <Card key={user.id} user={user} />
+        ))}
       </CardWrapper>
     </Container>
   );

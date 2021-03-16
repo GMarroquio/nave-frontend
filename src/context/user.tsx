@@ -51,8 +51,10 @@ export const UserContextProvider = ({
   };
 
   useEffect(() => {
-    const user = getUser();
-    if (user) setUser(user);
+    (async () => {
+      const user = await getUser();
+      if (user) setUser(user);
+    })();
     //eslint-disable-next-line
   }, []);
 
