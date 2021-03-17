@@ -31,6 +31,10 @@ export const LoginFormCard = styled.div`
   width: 448px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
 `;
 
 export const LoginForm = styled.form`

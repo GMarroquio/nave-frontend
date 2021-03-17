@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { MdChevronLeft } from 'react-icons/md';
 import IconButton from 'components/input/IconButton';
 import Input from 'components/input/Input';
-import { Container, Form, Title, Header, Content } from './styles';
+import {
+  Container,
+  Form,
+  Title,
+  Header,
+  Content,
+  ButtonWrapper
+} from './styles';
 import { useForm } from 'react-hook-form';
 import ButtonComponent from 'components/input/Button';
 import { useHistory } from 'react-router';
@@ -22,17 +29,17 @@ const EditNaver: React.FC = () => {
   const userId = history.location.pathname.split('/')[2];
 
   useEffect(() => {
+    setLoading(true);
     (async () => {
       const user: UserProps = await getUser({
         id: userId
       });
-
-      console.log();
       reset({
         ...user,
         birthdate: format(new Date(user.birthdate), 'yyyy-MM-dd'),
         admission_date: format(new Date(user.admission_date), 'yyyy-MM-dd')
       });
+      setLoading(false);
     })();
     //eslint-disable-next-line
   }, []);
@@ -113,11 +120,9 @@ const EditNaver: React.FC = () => {
               fullWidth
             />
             <div />
-            <ButtonComponent
-              label="salvar"
-              style={{ width: '75%', justifySelf: 'end' }}
-              type="submit"
-            />
+            <ButtonWrapper>
+              <ButtonComponent label="salvar" type="submit" />
+            </ButtonWrapper>
           </Form>
         </Content>
       </Container>

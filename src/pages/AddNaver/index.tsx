@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { MdChevronLeft } from 'react-icons/md';
 import IconButton from 'components/input/IconButton';
 import Input from 'components/input/Input';
-import { Container, Form, Title, Header, Content } from './styles';
+import {
+  Container,
+  Form,
+  Title,
+  Header,
+  Content,
+  ButtonWrapper
+} from './styles';
 import { useForm } from 'react-hook-form';
 import ButtonComponent from 'components/input/Button';
 import { useHistory } from 'react-router';
@@ -93,11 +100,9 @@ const AddNaver: React.FC = () => {
               fullWidth
             />
             <div />
-            <ButtonComponent
-              label="salvar"
-              style={{ width: '75%', justifySelf: 'end' }}
-              type="submit"
-            />
+            <ButtonWrapper>
+              <ButtonComponent label="salvar" type="submit" />
+            </ButtonWrapper>
           </Form>
         </Content>
       </Container>

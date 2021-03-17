@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: calc(1280px - 64px);
+  width: calc(1280px - 64px);
   margin: 0 auto;
   padding: 40px 0px;
 
   @media (max-width: 1280px) {
-    max-width: unset;
+    width: unset;
     padding: 40px 32px;
   }
 
