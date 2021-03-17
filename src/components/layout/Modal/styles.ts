@@ -6,7 +6,7 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background: #0008;
@@ -16,7 +16,6 @@ export const Container = styled.div<ContainerProps>`
   justify-content: center;
 
   @media (max-width: 425px) {
-    position: fixed;
     align-items: unset;
     justify-content: unset;
   }
