@@ -14,6 +14,12 @@ export const Container = styled.div<ContainerProps>`
   width: 100%;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 425px) {
+    position: fixed;
+    align-items: unset;
+    justify-content: unset;
+  }
 `;
 
 interface ModalProps {
@@ -25,6 +31,10 @@ export const ModalInfo = styled.div<ModalProps>`
   background-color: #fff;
   padding: ${({ padding }) => (padding ? '24px' : '0')};
   width: ${({ width }) => (width ? `${width}px` : '592px')};
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.p`

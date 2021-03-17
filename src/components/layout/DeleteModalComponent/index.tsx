@@ -2,6 +2,8 @@ import React from 'react';
 import { Message, Title } from '../Modal/styles';
 import ButtonComponent from 'components/input/Button';
 
+import { ButtonWrapper } from './styles';
+
 interface DeleteModalComponentProps {
   closeModal: () => void;
   handleDelete: () => void;
@@ -22,14 +24,7 @@ export const DeleteModalComponent = ({
         <Title>Excluir Naver</Title>
       </div>
       <Message>Tem certeza que deseja excluir este Naver?</Message>
-      <div
-        style={{
-          display: 'flex',
-          width: '75%',
-          marginTop: '40px',
-          marginLeft: 'auto'
-        }}
-      >
+      <ButtonWrapper>
         <ButtonComponent
           label="cancelar"
           onClick={closeModal}
@@ -42,7 +37,7 @@ export const DeleteModalComponent = ({
           onClick={handleDelete}
           style={{ width: '100%' }}
         />
-      </div>
+      </ButtonWrapper>
     </>
   );
 };

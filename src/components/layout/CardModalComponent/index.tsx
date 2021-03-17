@@ -10,18 +10,27 @@ import {
   InfoWrapper,
   Label,
   Info,
-  SecondaryInfoWrapper
+  Infos,
+  SecondaryInfoWrapper,
+  CloseButtonMobile,
+  CloseButtonDesktop
 } from './styles';
 import IconButton from 'components/input/IconButton';
-import { MdCreate, MdDelete } from 'react-icons/md';
+import { MdClose, MdCreate, MdDelete } from 'react-icons/md';
 import { useHistory } from 'react-router';
+import Button from 'components/input/Button';
 
 interface CardModalProps {
   id: string;
   handleDelete: () => void;
+  closeModal: () => void;
 }
 
-const CardModalComponent: React.FC<CardModalProps> = ({ id, handleDelete }) => {
+const CardModalComponent: React.FC<CardModalProps> = ({
+  id,
+  handleDelete,
+  closeModal
+}) => {
   const [user, setUser] = useState({} as UserProps);
   const history = useHistory();
 
@@ -55,9 +64,11 @@ const CardModalComponent: React.FC<CardModalProps> = ({ id, handleDelete }) => {
       <Container>
         <Image src={user.url} alt={`${user.name}'s avatar image`} />
         <InfoWrapper>
-          <div>
-            <Name>{user.name}</Name>
-            <Info>{user.job_role}</Info>
+          <Infos>
+            <SecondaryInfoWrapper>
+              <Name>{user.name}</Name>
+              <Info>{user.job_role}</Info>
+            </SecondaryInfoWrapper>
             <SecondaryInfoWrapper>
               <Label>Idade</Label>
               <Info>{calculateAge(user.birthdate, 'birth')}</Info>
@@ -70,18 +81,29 @@ const CardModalComponent: React.FC<CardModalProps> = ({ id, handleDelete }) => {
               <Label>Projetos que participou</Label>
               <Info>{user.project}</Info>
             </SecondaryInfoWrapper>
-          </div>
-          <div style={{ display: 'flex' }}>
-            <IconButton
-              icon={() => <MdDelete color="#212121" size="24px" />}
-              onClick={handleDelete}
-            />
-            <IconButton
-              icon={() => <MdCreate color="#212121" size="24px" />}
-              onClick={() => history.push(`/edit/${id}`)}
-            />
+          </Infos>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex' }}>
+              <IconButton
+                icon={() => <MdDelete color="#212121" size="24px" />}
+                onClick={handleDelete}
+              />
+              <IconButton
+                icon={() => <MdCreate color="#212121" size="24px" />}
+                onClick={() => history.push(`/edit/${id}`)}
+              />
+            </div>
+            <CloseButtonMobile>
+              <Button label="fechar" onClick={closeModal} />
+            </CloseButtonMobile>
           </div>
         </InfoWrapper>
+        <CloseButtonDesktop>
+          <IconButton
+            icon={() => <MdClose size={24} color="#212121" />}
+            onClick={closeModal}
+          />
+        </CloseButtonDesktop>
       </Container>
     </>
   );

@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  &:not(:last-child) {
-    margin-right: 32px;
-  }
-`;
+export const Container = styled.div``;
 
 export const Image = styled.img`
   min-height: 280px;
@@ -13,6 +9,12 @@ export const Image = styled.img`
   max-width: 280px;
   margin-bottom: 16px;
   object-fit: cover;
+
+  @media (max-width: 425px) {
+    min-width: unset;
+    max-width: unset;
+    width: 100%;
+  }
 `;
 
 export const Name = styled.p`
